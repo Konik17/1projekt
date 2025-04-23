@@ -22,10 +22,14 @@ class Main {
             System.out.println("Podaj imie:");
             String name = scanner.nextLine();
 
+            System.out.println("Podaj nazwisko:");
+            String nazwisko = scanner.nextLine();
+
             System.out.println("Podaj wiek:");
             int age = scanner.nextInt();
+            scanner.nextLine(); 
 
-            s.addStudent(new Student(name, age));
+            s.addStudent(new Student(name, age, nazwisko)); 
             break;
           case 2:
             var students = s.getStudents();
@@ -43,7 +47,9 @@ class Main {
 
       scanner.close();
     } catch (IOException e) {
-      
+      e.printStackTrace(); 
+    } catch (Exception e) {
+      System.out.println("Wystąpił błąd: " + e.getMessage());
     }
   }
 }
