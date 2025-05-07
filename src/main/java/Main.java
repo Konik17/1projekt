@@ -11,8 +11,9 @@ public class Main {
       while (running) {
         System.out.println("Wybierz opcję:");
         System.out.println("1: Dodaj studenta");
-        System.out.println("2: Wyświetl studentów");
+        System.out.println("2: Wyświetl wszystkich studentów");
         System.out.println("3: Wyjdź");
+        System.out.println("4: Wyszukaj studentów po imieniu");
 
         int choice = scanner.nextInt();
         scanner.nextLine(); 
@@ -28,7 +29,6 @@ public class Main {
             System.out.print("Podaj wiek: ");
             int age = scanner.nextInt();
 
-           
             int rok, miesiac, dzien;
             do {
               System.out.print("Podaj rok urodzenia (1900–2025): ");
@@ -66,6 +66,20 @@ public class Main {
 
           case 3:
             running = false;
+            break;
+
+          case 4:
+            System.out.print("Podaj imię do wyszukania: ");
+            String imieSzukane = scanner.nextLine();
+            var znalezieni = s.findStudentsByName(imieSzukane);
+            if (znalezieni.isEmpty()) {
+              System.out.println("Nie znaleziono studentów o podanym imieniu.");
+            } else {
+              System.out.println("Znalezieni studenci:");
+              for (Student st : znalezieni) {
+                System.out.println(st.toDisplayString());
+              }
+            }
             break;
 
           default:

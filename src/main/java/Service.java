@@ -24,4 +24,15 @@ public class Service {
     }
     return ret;
   }
+
+  public Collection<Student> findStudentsByName(String name) throws IOException {
+    var students = getStudents();
+    var matches = new ArrayList<Student>();
+    for (Student student : students) {
+      if (student.getName().equalsIgnoreCase(name)) {
+        matches.add(student);
+      }
+    }
+    return matches;
+  }
 }
