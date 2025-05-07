@@ -1,36 +1,27 @@
-import java.util.Collection;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.Collection;
+
 public class Service {
 
   public void addStudent(Student student) throws IOException {
-    var f = new FileWriter("db.txt", true);
-    var b = new BufferedWriter(f);
-    b.append(student.ToString());
-    b.newLine();
-    b.close();
+    try (BufferedWriter b = new BufferedWriter(new FileWriter("db.txt", true))) {
+      b.write(student.toString());
+      b.newLine();
+    }
   }
 
   public Collection<Student> getStudents() throws IOException {
     var ret = new ArrayList<Student>();
-    var f = new FileReader("db.txt");
-    var reader = new BufferedReader(f);
-    String line = "";
-    while (true) {
-      line = reader.readLine();
-      if(line == null)
-        break;
-      ret.add(Student.Parse(line));
+    try (BufferedReader reader = new BufferedReader(new FileReader("db.txt"))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        Student parsed = Student.Parse(line);
+        if (parsed != null) {
+          ret.add(parsed);
+        }
+      }
     }
-    reader.close();
     return ret;
-  }
-
-  public Student findStudentByName(String name) {
-    return null;
   }
 }

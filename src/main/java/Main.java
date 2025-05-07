@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-class Main {
+public class Main {
   public static void main(String[] args) {
     try {
       Service s = new Service();
@@ -19,27 +19,55 @@ class Main {
 
         switch (choice) {
           case 1:
-            System.out.println("Podaj imie:");
+            System.out.print("Podaj imię: ");
             String name = scanner.nextLine();
 
-            System.out.println("Podaj nazwisko:");
+            System.out.print("Podaj nazwisko: ");
             String nazwisko = scanner.nextLine();
 
-            System.out.println("Podaj wiek:");
+            System.out.print("Podaj wiek: ");
             int age = scanner.nextInt();
+
+           
+            int rok, miesiac, dzien;
+            do {
+              System.out.print("Podaj rok urodzenia (1900–2025): ");
+              rok = scanner.nextInt();
+            } while (rok < 1900 || rok > 2025);
+
+            do {
+              System.out.print("Podaj miesiąc urodzenia (1–12): ");
+              miesiac = scanner.nextInt();
+            } while (miesiac < 1 || miesiac > 12);
+
+            do {
+              System.out.print("Podaj dzień urodzenia (1–31): ");
+              dzien = scanner.nextInt();
+            } while (dzien < 1 || dzien > 31);
+
             scanner.nextLine(); 
 
-            s.addStudent(new Student(name, age, nazwisko)); 
+            String dataUrodzenia = String.format("%04d-%02d-%02d", rok, miesiac, dzien);
+
+            s.addStudent(new Student(name, age, nazwisko, dataUrodzenia));
+            System.out.println("Dodano studenta.");
             break;
+
           case 2:
             var students = s.getStudents();
-            for(Student current : students) {
-              System.out.println(current.ToString());
+            if (students.isEmpty()) {
+              System.out.println("Brak studentów w bazie.");
+            } else {
+              for (Student current : students) {
+                System.out.println(current.toDisplayString());
+              }
             }
             break;
+
           case 3:
             running = false;
             break;
+
           default:
             System.out.println("Nieprawidłowy wybór, spróbuj ponownie.");
         }
@@ -47,7 +75,7 @@ class Main {
 
       scanner.close();
     } catch (IOException e) {
-      e.printStackTrace(); 
+      e.printStackTrace();
     } catch (Exception e) {
       System.out.println("Wystąpił błąd: " + e.getMessage());
     }
