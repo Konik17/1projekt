@@ -15,9 +15,10 @@ public class Main {
         System.out.println("3: Wyjdź");
         System.out.println("4: Wyszukaj studentów po imieniu");
         System.out.println("5: Usuń studenta (po imieniu i nazwisku)");
+        System.out.println("6: Zaktualizuj dane studenta (zmień wiek)");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // wyczyść bufor
+        scanner.nextLine(); 
 
         switch (choice) {
           case 1:
@@ -46,7 +47,7 @@ public class Main {
               dzien = scanner.nextInt();
             } while (dzien < 1 || dzien > 31);
 
-            scanner.nextLine(); // bufor
+            scanner.nextLine(); 
 
             String dataUrodzenia = String.format("%04d-%02d-%02d", rok, miesiac, dzien);
             s.addStudent(new Student(name, age, nazwisko, dataUrodzenia));
@@ -92,6 +93,24 @@ public class Main {
             boolean success = s.removeStudentByNameAndSurname(imieDel, nazwiskoDel);
             if (success) {
               System.out.println("Student został usunięty.");
+            } else {
+              System.out.println("Nie znaleziono studenta o podanym imieniu i nazwisku.");
+            }
+            break;
+
+          case 6:
+            System.out.print("Podaj imię studenta do zaktualizowania: ");
+            String imieAktualizowane = scanner.nextLine();
+
+            System.out.print("Podaj nazwisko studenta do zaktualizowania: ");
+            String nazwiskoAktualizowane = scanner.nextLine();
+
+            System.out.print("Podaj nowy wiek: ");
+            int nowyWiek = scanner.nextInt();
+
+            boolean updated = s.updateStudentAgeByNameAndSurname(imieAktualizowane, nazwiskoAktualizowane, nowyWiek);
+            if (updated) {
+              System.out.println("Wiek studenta został zaktualizowany.");
             } else {
               System.out.println("Nie znaleziono studenta o podanym imieniu i nazwisku.");
             }

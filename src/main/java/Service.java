@@ -43,13 +43,31 @@ public class Service {
       for (Student student : students) {
         if (!removed && student.getName().equalsIgnoreCase(name) &&
             student.getNazwisko().equalsIgnoreCase(nazwisko)) {
-          removed = true; // pierwszy dopasowany student do usunięcia
-          continue; // pomijamy ten student, aby go usunąć
+          removed = true; 
+          continue; 
         }
         writer.write(student.toString());
         writer.newLine();
       }
     }
-    return removed; // true, jeśli student został usunięty
+    return removed; 
+  }
+
+ 
+  public boolean updateStudentAgeByNameAndSurname(String name, String nazwisko, int newAge) throws IOException {
+    var students = getStudents();
+    boolean updated = false;
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("db.txt"))) {
+      for (Student student : students) {
+        if (!updated && student.getName().equalsIgnoreCase(name) &&
+            student.getNazwisko().equalsIgnoreCase(nazwisko)) {
+          student.setAge(newAge); 
+          updated = true; 
+        }
+        writer.write(student.toString());
+        writer.newLine();
+      }
+    }
+    return updated; 
   }
 }

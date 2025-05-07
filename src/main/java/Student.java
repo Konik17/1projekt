@@ -23,17 +23,22 @@ public class Student {
     return age;
   }
 
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
   public String getDataUrodzenia() {
     return dataUrodzenia;
   }
 
   @Override
   public String toString() {
+ 
     return name + ";" + nazwisko + ";" + age + ";" + dataUrodzenia;
   }
 
   public static Student Parse(String str) {
-    if (str == null) return null;
     String[] data = str.split(";");
     if (data.length != 4)
       return null;
@@ -49,6 +54,7 @@ public class Student {
     }
   }
 
+ 
   public String toDisplayString() {
     return name + " " + nazwisko + ", " + age + " lat, ur. " + dataUrodzenia;
   }
