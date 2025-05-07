@@ -1,6 +1,4 @@
-kamil dubiel 20
-kamil;dubiel;20;2000-10-30
 kamil;\;20;1900-02-02
-Jakub;Pasieka;32;1992-05-04
-kamil;Dubiel;323;1999-06-02
 jakub;asdas;32;1993-03-04
+kamil;dubiel;4;2020-02-03
+kamil;dubiel;32;1900-02-23

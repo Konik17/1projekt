@@ -9,14 +9,15 @@ public class Main {
       boolean running = true;
 
       while (running) {
-        System.out.println("Wybierz opcję:");
+        System.out.println("\nWybierz opcję:");
         System.out.println("1: Dodaj studenta");
         System.out.println("2: Wyświetl wszystkich studentów");
         System.out.println("3: Wyjdź");
         System.out.println("4: Wyszukaj studentów po imieniu");
+        System.out.println("5: Usuń studenta (po imieniu i nazwisku)");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); 
+        scanner.nextLine(); // wyczyść bufor
 
         switch (choice) {
           case 1:
@@ -45,10 +46,9 @@ public class Main {
               dzien = scanner.nextInt();
             } while (dzien < 1 || dzien > 31);
 
-            scanner.nextLine(); 
+            scanner.nextLine(); // bufor
 
             String dataUrodzenia = String.format("%04d-%02d-%02d", rok, miesiac, dzien);
-
             s.addStudent(new Student(name, age, nazwisko, dataUrodzenia));
             System.out.println("Dodano studenta.");
             break;
@@ -79,6 +79,21 @@ public class Main {
               for (Student st : znalezieni) {
                 System.out.println(st.toDisplayString());
               }
+            }
+            break;
+
+          case 5:
+            System.out.print("Podaj imię studenta do usunięcia: ");
+            String imieDel = scanner.nextLine();
+
+            System.out.print("Podaj nazwisko studenta do usunięcia: ");
+            String nazwiskoDel = scanner.nextLine();
+
+            boolean success = s.removeStudentByNameAndSurname(imieDel, nazwiskoDel);
+            if (success) {
+              System.out.println("Student został usunięty.");
+            } else {
+              System.out.println("Nie znaleziono studenta o podanym imieniu i nazwisku.");
             }
             break;
 

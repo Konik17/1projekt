@@ -35,4 +35,21 @@ public class Service {
     }
     return matches;
   }
+
+  public boolean removeStudentByNameAndSurname(String name, String nazwisko) throws IOException {
+    var students = getStudents();
+    boolean removed = false;
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("db.txt"))) {
+      for (Student student : students) {
+        if (!removed && student.getName().equalsIgnoreCase(name) &&
+            student.getNazwisko().equalsIgnoreCase(nazwisko)) {
+          removed = true; // pierwszy dopasowany student do usunięcia
+          continue; // pomijamy ten student, aby go usunąć
+        }
+        writer.write(student.toString());
+        writer.newLine();
+      }
+    }
+    return removed; // true, jeśli student został usunięty
+  }
 }
